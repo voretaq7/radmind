@@ -3,30 +3,19 @@
  * All Rights Reserved.  See COPYRIGHT.
  */
 
-#ifndef SIZEOF_OFF_T
-#error "sizeof off_t unknown."
-#endif
-
-#if SIZEOF_OFF_T == 8
-    #ifdef HAVE_STRTOLL
-    #define strtoofft(x,y,z)	(strtoll((x),(y),(z)))
-    #else
-    #define strtoofft(x,y,z)        (strtol((x),(y),(z)))
-    #endif
+#ifdef HAVE_STRTOLL
+#define strtoofft(x,y,z)	((off_t) strtoll((x),(y),(z)))
+#define strtotimet(x,y,z)	((time_t) strtoll((x),(y),(z)))
 #define PRIofft			"ll"
-#else	/* a bit of an assumption, here */
-#define strtoofft(x,y,z)	(strtol((x),(y),(z)))
-#define PRIofft			"l"
+#define PRItimet		"ll"
+#define CASTofft		(long long)
+#define CASTtimet		(long long)
+#else
+#define strtoofft(x,y,z)        ((off_t) strtol((x),(y),(z)))
+#define strtotimet(x,y,z)	((time_t) strtol((x),(y),(z)))
+#define PRIofft			"ll"
+#define PRItimet		"ll"
+#define CASTofft		(long)
+#define CASTtimet		(long)
 #endif
 
-#if SIZEOF_TIME_T == 8
-    #ifdef HAVE_STRTOLL
-    #define strtotimet(x,y,z)	(strtoll((x),(y),(z)))
-    #else /* !HAVE_STRTOLL */
-    #define strtotimet(x,y,z)	(strtol((x),(y),(z)))
-    #endif /* HAVE_STRTOLL */
-    #define PRItimet		"ll"
-#else /* SIZEOF_TIME_T != 8 */
-    #define strtotimet(x,y,z)	(strtol((x),(y),(z)))
-    #define PRItimet		"l"
-#endif /* SIZEOF_TIME_T */

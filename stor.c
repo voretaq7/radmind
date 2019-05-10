@@ -184,12 +184,12 @@ stor_file( SNET *sn, char *pathdesc, char *path, off_t transize,
     if ( verbose ) printf( ">>> %s\n", pathdesc );
 
     /* tell server how much data to expect */
-    if ( snet_writef( sn, "%" PRIofft "d\r\n", st.st_size ) < 0 ) {
+    if ( snet_writef( sn, "%" PRIofft "d\r\n", CASTofft st.st_size ) < 0 ) {
 	fprintf( stderr, "stor_file %s failed: %s\n", pathdesc,
 	    strerror( errno ));
 	exit( 2 );
     }
-    if ( verbose ) printf( ">>> %" PRIofft "d\n", st.st_size );
+    if ( verbose ) printf( ">>> %" PRIofft "d\n", CASTofft st.st_size );
 
     /* write file to server */
     while (( rr = read( fd, buf, sizeof( buf ))) > 0 ) {
@@ -322,12 +322,13 @@ stor_applefile( SNET *sn, char *pathdesc, char *path, off_t transize,
 
     /* tell server how much data to expect */
     tv = timeout;
-    if ( snet_writef( sn, "%" PRIofft "d\r\n", afinfo->as_size ) < 0 ) {
+    if ( snet_writef( sn, "%" PRIofft "d\r\n",
+         CASTofft afinfo->as_size ) < 0 ) {
 	fprintf( stderr, "stor_applefile %s failed: %s\n", pathdesc,
 	    strerror( errno ));
 	exit( 2 );
     }
-    if ( verbose ) printf( ">>> %" PRIofft "d\n", afinfo->as_size );
+    if ( verbose ) printf( ">>> %" PRIofft "d\n", CASTofft afinfo->as_size );
 
     /* write applesingle header to server */
     tv = timeout;
@@ -520,12 +521,13 @@ n_stor_applefile( SNET *sn, char *pathdesc, char *path )
     if ( verbose ) printf( ">>> %s\n", pathdesc );
 
     /* tell server how much data to expect and send '.' */
-    if ( snet_writef( sn, "%" PRIofft "d\r\n", afinfo.as_size ) < 0 ) {
+    if ( snet_writef( sn, "%" PRIofft "d\r\n",
+         CASTofft afinfo.as_size ) < 0 ) {
 	fprintf( stderr, "n_stor_applefile %s failed: %s\n", pathdesc,
 	    strerror( errno ));
 	exit( 2 );
     }
-    if ( verbose ) printf( ">>> %" PRIofft "d\n", afinfo.as_size );
+    if ( verbose ) printf( ">>> %" PRIofft "d\n", CASTofft afinfo.as_size );
 
     /* write applesingle header to server */
     tv = timeout;

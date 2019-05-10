@@ -437,13 +437,14 @@ do_lcksum( char *tpath )
 		    fprintf( ufs, "%s %-37s %4s %5s %5s %9" PRItimet "d "
 			    "%7" PRIofft "d %s\n",
 			targv[ 0 ], targv[ 1 ], targv[ 2 ], targv[ 3 ],
-			targv[ 4 ], st.st_mtime, st.st_size, lcksum );
+			targv[ 4 ], CASTtimet st.st_mtime,
+			CASTofft st.st_size, lcksum );
 		} else {
 		    /* use mtime from transcript */
 		    fprintf( ufs, "%s %-37s %4s %5s %5s %9s "
 			    "%7" PRIofft "d %s\n",
 			targv[ 0 ], targv[ 1 ], targv[ 2 ], targv[ 3 ],
-			targv[ 4 ], targv[ 5 ], st.st_size, lcksum );
+			targv[ 4 ], targv[ 5 ], CASTofft st.st_size, lcksum );
 		    }
 	    } else {
 		/* Line correct */

@@ -445,7 +445,8 @@ f_retr( SNET *sn, int ac, char **av )
      * Here's a problem.  Do we need to add long long support to
      * snet_writef?
      */
-    snet_writef( sn, "240 Retrieving file\r\n%" PRIofft "d\r\n", st.st_size );
+    snet_writef( sn, "240 Retrieving file\r\n%" PRIofft "d\r\n",
+        CASTofft st.st_size );
 
     /* dump file */
 
@@ -721,7 +722,7 @@ f_stat( SNET *sn, int ac, char *av[] )
         snet_writef( sn, "%s %s %s %s %s %" PRItimet "d %" PRIofft "d %s\r\n",
 		av[ 0 ], enc_file,
 		av[ 2 ], av[ 3 ], av[ 4 ],
-		st.st_mtime, st.st_size, cksum_b64 );
+		st.st_mtime, CASTofft st.st_size, cksum_b64 );
 
 	free( enc_file );
 	return( 0 );
@@ -904,7 +905,7 @@ f_stor( SNET *sn, int ac, char *av[] )
     }
 
     if ( len != 0 ) {
-	syslog( LOG_ERR, "f_stor: len is %" PRIofft "d", len );
+	syslog( LOG_ERR, "f_stor: len is %" PRIofft "d", CASTofft len );
 	snet_writef( sn, "%d %s: internal error!\r\n", 555, upload );
 	exit( 1 );
     }

@@ -442,8 +442,9 @@ t_print( struct pathinfo *fs, struct transcript *tran, int flag )
 		(unsigned long)( T_MODE & cur->pi_stat.st_mode ), 
 		(int)cur->pi_stat.st_uid, (int)cur->pi_stat.st_gid,
 		( flag == PR_STATUS_NEG ) ?
-			fs->pi_stat.st_mtime : cur->pi_stat.st_mtime,
-		cur->pi_stat.st_size, cur->pi_cksum_b64 );
+			CASTtimet fs->pi_stat.st_mtime :
+			CASTtimet cur->pi_stat.st_mtime,
+		CASTofft cur->pi_stat.st_size, cur->pi_cksum_b64 );
 	break;
 
     case 'c':
